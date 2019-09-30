@@ -1,0 +1,102 @@
+
+
+<div class="row" style="margin: 20px;">
+    <div class="col-md-4" *ngIf="displayConge">
+        <mat-toolbar color="warn">Tous le détails</mat-toolbar>
+        <mat-card >
+            <mat-button-toggle-group [(ngModel)]="displayConge.etat" matRipple name="fontStyle" aria-label="Font Style">
+                <mat-button-toggle (click)="openSnackBar()"  value="En attente">En attente</mat-button-toggle>
+                <mat-button-toggle (click)="openSnackBar()" value="Refusée">Refusée</mat-button-toggle>
+                <mat-button-toggle (click)="openSnackBar()" value="Acceptée">Acceptée</mat-button-toggle>
+            </mat-button-toggle-group>
+
+            <i>
+            <mat-toolbar>Information sur l'employe</mat-toolbar>
+        <p>Nom: {{displayConge.employe.nom}}</p>
+            <p>Prenom: {{displayConge.employe.prenom}}</p>
+            <p>Né(e) le: {{displayConge.employe.datenaissance}} à {{displayConge.employe.lieu}}  </p>
+            <p>CNI: {{displayConge.employe.cni}} </p>
+            <p>Fonction: {{displayConge.employe.fonction}} </p>
+            <p>Grade: {{displayConge.employe.grade}} </p>
+            <p>Echelon: {{displayConge.employe.echelon}} </p>
+            <p>Durée: {{displayConge.nombredejours}} jours</p>
+            <mat-toolbar>Détail sur la demande</mat-toolbar>
+            <p>Etat :<i style="color: crimson"> {{displayConge.etat}}</i></p>
+            <p>Date de demande: {{displayConge.datedemande}} </p>
+            <p>Cause: {{displayConge.cause}} </p>
+            <p>Nombre de jour: {{displayConge.nombredejours}} jours </p>
+            <p>Date de depart: {{displayConge.datedep}} </p>
+            <p>Date de retour: {{displayConge.dateretour}} </p>
+            <p>Adresse: {{displayConge.adresse}} </p>
+            <p>Telephone: {{displayConge.telephone}} </p>
+            <p>Code postal: {{displayConge.codepostal}} </p>
+            <p>Type: {{displayConge.type}} </p>
+            <p>Type doc: {{displayConge.typedoc}} </p>
+            <p>Remplacant: {{displayConge.remplacant}} </p>
+            <mat-toolbar>Solde</mat-toolbar>
+            <p>Solde annuel: {{displayConge.employe.solde}} </p>
+            <p>Solde maladie: {{displayConge.employe.soldemaladie}} </p>
+            <p>Solde compensation: {{displayConge.employe.soldecompensation}} </p>
+            <p>Solde exception: {{displayConge.employe.soldeexception}} </p>
+
+
+
+            </i>
+
+
+        </mat-card>
+    </div>
+    <div class="col-lg-8">
+
+
+        <div class="mat-elevation-z8" style="margin: 20px;">
+            <mat-form-field >
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Rechercher ...">
+            </mat-form-field>
+            <table mat-table [dataSource]="dataSource" matSort>
+
+                <!-- ID Column -->
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                    <td mat-cell *matCellDef="let row" (click)="select(row)" > {{row.id}}  </td>
+                </ng-container>
+
+                <!-- Progress Column -->
+                <ng-container matColumnDef="nom">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Nom </th>
+                    <td mat-cell *matCellDef="let row"> {{row.employe.nom}} </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="prenom">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Prenom </th>
+                    <td mat-cell *matCellDef="let row"> {{row.employe.prenom}} </td>
+                </ng-container>
+
+                <!-- Color Column -->
+                <ng-container matColumnDef="nbreJours">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Durée (jours) </th>
+                    <td mat-cell *matCellDef="let row" > {{row.nombredejours}} </td>
+                </ng-container>
+
+
+                <!-- Color Column -->
+                <ng-container matColumnDef="etat">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Voir </th>
+                    <td mat-cell *matCellDef="let row" >
+                        <button mat-raised-button color="warn" (click)="select(row)">
+                        <i class="fa pe-7s-look"></i>
+                    </button> </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                </tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        </div>
+    </div>
+
+</div>

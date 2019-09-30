@@ -1,0 +1,107 @@
+
+<mat-tab-group style="margin: 30px;" color="warn">
+    <mat-tab label="Toutes les demandes">
+
+    <mat-toolbar>Historique des demandes</mat-toolbar>
+
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+            <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> No. </th>
+                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="dateDep">
+                <th mat-header-cell *matHeaderCellDef> Date de depart </th>
+                <td mat-cell *matCellDef="let element"> {{element.dateDep | date: 'dd/MM/yyyy' }} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="dateRetour">
+                <th mat-header-cell *matHeaderCellDef> Date de retour </th>
+                <td mat-cell *matCellDef="let element"> {{element.dateRetour | date: 'dd/MM/yyyy'}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="caus">
+                <th mat-header-cell *matHeaderCellDef> Cause </th>
+                <td mat-cell *matCellDef="let element"> {{element.caus}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="etat">
+                <th mat-header-cell *matHeaderCellDef> Etat </th>
+                <td mat-cell *matCellDef="let element"> {{element.etat? element.etat: 'en attente' }} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+
+
+
+
+    </mat-tab>
+    <mat-tab label="Nouvelle demande">
+        <mat-toolbar>Soumettre une nouvelle demande</mat-toolbar>
+
+        <mat-card>
+
+            <form [formGroup]="demandeForm" (ngSubmit)="soumettre()" class="example-form">
+
+                <mat-form-field>
+                    <input matInput [matDatepicker]="picker1" formControlName="dateDep" placeholder="Date de depart">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput [matDatepicker]="picker2" formControlName="dateRetour" placeholder="Date de retour">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <input matInput formControlName="type" placeholder="Type" >
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <input matInput formControlName="typeDoc" placeholder="Type doc" >
+                </mat-form-field>
+
+                <mat-form-field style="width: 100%" class="example-full-width">
+                    <textarea matInput formControlName="caus" placeholder="Cause"></textarea>
+                </mat-form-field>
+
+
+                <mat-form-field class="example-full-width">
+                    <input matInput formControlName="remplacant" placeholder="Remplacent" >
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <input matInput formControlName="adresse" placeholder="Adresse" >
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <input matInput type="number" formControlName="telephone" placeholder="Téléphone" >
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <input matInput formControlName="codePostal" placeholder="Code postal" >
+                </mat-form-field>
+
+                <button type="submit" mat-raised-button color="warn" [disabled]="demandeForm.invalid">Soumetre</button>
+
+            </form>
+
+        </mat-card>
+
+    </mat-tab>
+</mat-tab-group>
+

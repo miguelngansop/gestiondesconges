@@ -1,0 +1,39 @@
+`
+<div class="row">
+  <div class="col-lg-9">
+    <img src="../../assets/img/eco.png"/>
+    <mat-toolbar>Application de gestion des congés</mat-toolbar>
+  </div>
+  <div class="col-lg-3">
+    <mat-toolbar>Formulaire de connexion</mat-toolbar>
+    <mat-card style="width: 100%; height: 100%;">
+      <mat-card-title>Connexion</mat-card-title>
+      <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="submit()">
+          <p>
+            <mat-form-field>
+              <input type="text" matInput placeholder="Username" formControlName="username">
+            </mat-form-field>
+          </p>
+
+          <p>
+            <mat-form-field>
+              <input type="password" matInput placeholder="Password" formControlName="password">
+            </mat-form-field>
+          </p>
+
+          <p *ngIf="error" class="error">
+            {{ error }}
+          </p>
+
+          <div class="button">
+            <button  mat-raised-button type="submit" mat-button>Se connecter</button>
+          </div>
+
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+
+</div>
